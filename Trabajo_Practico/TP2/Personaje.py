@@ -3,28 +3,32 @@
 from random import randint
 import Imprimir
 
-
+#   Main Class
 class personaje:
-
-    def __init__(self, nombre, raza, nivel, str,dex,int,cha):
-        # atributos
+    
+    def __init__(self, nombre, raza, job, str,dex,int,cha):
+        # Atributos de clase
         self.nombre = nombre
         self.raza = raza
-        self.nivel = nivel
+        self.clase = job
         self.fuerza = str
         self.destreza = dex
         self.inteligencia = int
         self.carisma = cha
         self.defenza = 14
+
+        #Metodo atacar
     def atacar(self):
         atk = randint(0, 20)
         return atk
 
 
-
+#   Nombre de personaje
 print('Creador de personaje')
 Name = str(input('Nombre de Personaje: '))
 
+
+#   Raza de personaje
 print(' 1-Humano \n', '2-Elfo\n', '3-Semi Elfo\n', '4-Semi Orco\n')
 rselect = int(input('Elegir Raza: '))
 if rselect == 1:
@@ -34,12 +38,21 @@ elif rselect == 2:
 elif rselect == 3:
     race = 'Semi Elfo'
 elif rselect == 4:
-    race = 'Semi Orco'
+    race = 'Semi Orco\n\n\nc'
 
 
-lvl = int(input('Nivel de comienzo: '))
+
+#   Clase de personaje
+print(' 1-Guerrero \n', '2-Mago\n')
+lvl = int(input('Elige tu clase: '))
+if lvl == 1:
+    job = 'guerrero'
+elif lvl == 2:
+    job = 'mago'
 
 
+
+#   Estadisticas de personaje
 print('Estadisticas:')
 str = randint(3, 20)
 dex = randint(3, 20)
@@ -50,9 +63,13 @@ cha = randint(3, 20)
 
 print(" Fuerza: ",str, "\n","Destreza: ",dex, "\n","Inteligencia: ",int, "\n","Sabiduria: ",cha, "\n","\n")
 
-personaje_1 = personaje(Name,race,lvl,str,dex,int,cha)
 
-print("Comienza la Aventura!","\n","\n")
+
+
+#   Se crea subclase de personaje con los datos introducidos
+personaje_1 = personaje(Name,race,job,str,dex,int,cha)
+print("#########################")
+print("Comienza la Aventura!\n","###################","\n","\n")
 
 print("Te encontrabas recostado contra el tronco de un viejo árbol, antes de que pudieras dormirte una siesta un grito desgarrador te llamó poderosamente la atención","\n")
 
@@ -61,7 +78,11 @@ print(f"'{personaje_1.nombre}! Ayuda por favor!'\n")
 print(' 1-Voy corriendo a ayudar \n', '2-Me duermo una siesta, que se las arregle\n', '3-Me voy al bar, aca no paso nada\n', '4-Espero un rato voy cuando sea seguro\n')
 choice1 = (input('Que haces?: '))
 
-if choice1 == "1":
+
+
+
+#   Primera eleccion
+if choice1 == "1": 
     print("Corriste desesperadamente en la dirección de los gritos, al llegar al lugar te encuentras con la imagen de tu compañero de equipo Jose peleando con un goblin\n")
 
     print(f"'{personaje_1.nombre} dame una mano con el monstruo'   tu amigo te pide ayuda\n")
@@ -81,7 +102,9 @@ if choice1 == "1":
     if choice12 == "2":
         print(f"'{personaje_1.nombre} no me abandones!,{personaje_1.raza} traidor!'\n Abandonaste a Jose a su suerte...")
     
-    if choice12 == "3":
+
+    #Guerrero
+    if choice12 == "3" and personaje_1.clase == "guerrero":
         print("Decidiste unirte al goblin\n 1-Le tiro una piedra a Jose \n 2-Le lanzo a Jose uno de mis cuchillos")
         choice123 = (input('Que haces?: '))
         if choice123 =="1":
@@ -99,9 +122,28 @@ if choice1 == "1":
 
 
 
+
+
+     #Mago
+    if choice12 == "3" and personaje_1.clase == "mago":
+        print("Decidiste unirte al goblin\n 1-Le lanzo una bola de fuego a Jose ")
+        choice123 = (input('Que haces?: '))
+        if choice123 =="1":
+            print("Preparas tu hehchizo y cuando esta listo se lo lanzas a Jose")
+            if personaje_1.inteligencia <= 12:
+                print("Tu inteligencia no es suficiente, tu hechizo no funciona... \n Te tardaste mucho y Jose los mato a los dos")
+            else:
+                print("Con tu gran Inteligencia logras incinerar a tu enemigo... \n Vos y el goblin se fueron al bar con la plata de Jose")
+    
+
+
+
+#   Segunda eleccion
 elif choice1 == "2":
     print("Tu aventura termina antes de que pueda comenzar, durante tu siesta alguien te asesina")
 
+
+#   Tercera eleccion
 elif choice1 == "3":
     print("Despues de varios tragos el barman te dice que pagues por que va a cerrar\n 1-Le pagas pero te quedas sin plata \n 2-'Si crees en dios entoces que te page el'\n 3- Tratas de convencerlo de que te fie \n 4-Le haces un dibujito de Batman" )
     choice32 = (input('Que haces?: '))
@@ -125,6 +167,8 @@ elif choice1 == "3":
     if choice32 == "4":
         Imprimir.batman()
 
+
+#   Cuarta eleccion
 elif choice1 == "4":
     print("Cuando los gritos y sonidos de batalla se detienen te acercas a ver que pasó \n Econtras el cuerpo de Jose, tu amigo\n \n 1-Sepulto su cuerpo \n 2-Me llevo la bolsa de oro")
     choice42 = (input('Que haces?: '))
